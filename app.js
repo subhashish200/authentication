@@ -8,7 +8,9 @@ const encrypt = require("mongoose-encryption");
 
 const app = express();
 
-
+const secret = process.env.SECRET;
+console.log(process.env.API_KEY);
+console.log(secret);
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -23,7 +25,7 @@ const userSchema = new mongoose.Schema ({
     password: String
 });
 
-const secret = "Thisisourlittlesecret.";
+
 userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); // add encrypt package into userSchema...by secret msg ..It will encrypt only password field in dataBase..
 
 const User = new mongoose.model("User", userSchema);
